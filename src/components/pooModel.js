@@ -11,13 +11,7 @@ class Product {
 
   warranty;
 
-  add() {
-    return this.qnt + 1;
-  }
-
-  remove() {
-    return this.qnt - 1;
-  }
+  available;
 }
 
 export default Product;

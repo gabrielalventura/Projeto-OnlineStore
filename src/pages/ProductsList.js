@@ -75,6 +75,7 @@ class ProductsList extends React.Component {
       item.thumbnail = product.thumbnail;
       item.price = product.price;
       item.warranty = product.warranty;
+      item.available = product.available_quantity;
       this.setState((prevState) => ({
         cart: [...prevState.cart, item],
       }), this.save);

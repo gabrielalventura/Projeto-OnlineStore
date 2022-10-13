@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { BsBoxSeam } from 'react-icons/bs';
 import { getProductFromId } from '../services/api';
 import ButtonCart from '../components/ButtonCart';
 import Product from '../components/pooModel';
@@ -20,6 +21,7 @@ class ProductDetail extends Component {
       ratingObject: [],
       cart: [],
       cartCount: 0,
+      shipping: false,
     };
   }
 
@@ -34,7 +36,9 @@ class ProductDetail extends Component {
       this.setState({ cartCount: 0 });
     }
     this.setState(
-      { product, ratingObject: [...JSON.parse(localStorage.getItem(id))] },
+      { product,
+        ratingObject: [...JSON.parse(localStorage.getItem(id))],
+        shipping: product.shipping.free_shipping },
     );
     this.regexEmail();
     this.setState({ product });
@@ -124,14 +128,21 @@ class ProductDetail extends Component {
   };
 
   render() {
-    const { product: { title, thumbnail, price, warranty }, errorLog,
-      ratingObject, rating, text, email, cartCount } = this.state;
+    const
+      {
+        product: { title, thumbnail, price, warranty }, shipping,
+        errorLog, ratingObject, rating, text, email, cartCount } = this.state;
     return (
       <div>
         <div>
           <Link to="/">Home</Link>
           <ButtonCart cartCount={ cartCount } />
         </div>
+        {shipping && (
+          <div data-testid="free-shipping">
+            <BsBoxSeam />
+            Frete Grátis
+          </div>)}
         <h3 data-testid="product-detail-name">{title}</h3>
         <img
           src={ thumbnail }

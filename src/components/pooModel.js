@@ -3,6 +3,8 @@ class Product {
 
   thumbnail;
 
+  freeShipping;
+
   qnt;
 
   price;
@@ -10,14 +12,6 @@ class Product {
   id;
 
   warranty;
-
-  add() {
-    return this.qnt + 1;
-  }
-
-  remove() {
-    return this.qnt - 1;
-  }
 }
 
 export default Product;

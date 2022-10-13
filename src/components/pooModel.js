@@ -12,6 +12,8 @@ class Product {
   id;
 
   warranty;
+
+  available;
 }
 
 export default Product;

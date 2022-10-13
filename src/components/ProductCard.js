@@ -2,15 +2,22 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './ProductCard.css';
+import { BsBoxSeam } from 'react-icons/bs';
 
 class ProductCard extends Component {
   render() {
-    const { productName, productImage, productPrice, productId } = this.props;
+    const { productName, productImage, productPrice, productId, shipping } = this.props;
     const { addCartAndLocalStorage } = this.props;
     return (
       <div data-testid="product">
         <h3>{productName}</h3>
         <img src={ productImage } alt={ productName } />
+        {shipping && (
+          <div data-testid="free-shipping">
+            <BsBoxSeam />
+            Frete Grátis
+          </div>
+        )}
         <span>{productPrice}</span>
         <button
           type="button"
@@ -37,5 +44,6 @@ ProductCard.propTypes = {
   productPrice: PropTypes.number.isRequired,
   productId: PropTypes.string.isRequired,
   addCartAndLocalStorage: PropTypes.func.isRequired,
+  shipping: PropTypes.bool.isRequired,
 };
 export default ProductCard;

@@ -62,6 +62,7 @@ class ProductsList extends React.Component {
 
     const findProduct = cart.find((item) => item.id === id);
     const findIndex = cart.findIndex((item) => item.id === id);
+    console.log(product);
     if (findProduct && findIndex >= 0) {
       arr[findIndex].qnt += 1;
       this.setState(() => ({
@@ -74,6 +75,7 @@ class ProductsList extends React.Component {
       item.qnt = 1;
       item.thumbnail = product.thumbnail;
       item.price = product.price;
+      item.freeShipping = product.shipping.free_shipping;
       item.warranty = product.warranty;
       item.available = product.available_quantity;
       this.setState((prevState) => ({
@@ -142,6 +144,7 @@ class ProductsList extends React.Component {
                     productPrice={ product.price }
                     productId={ product.id }
                     addCartAndLocalStorage={ this.addCartAndLocalStorage }
+                    shipping={ product.shipping.free_shipping }
                   />
                 ))
               )

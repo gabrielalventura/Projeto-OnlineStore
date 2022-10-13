@@ -3,6 +3,8 @@ class Product {
 
   thumbnail;
 
+  freeShipping;
+
   qnt;
 
   price;

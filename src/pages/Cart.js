@@ -27,12 +27,14 @@ class Cart extends React.Component {
     this.setState({ cart: cart.filter((item) => id !== item.id) }, this.save);
   };
 
-  handleAdd = (id) => {
+  handleAdd = (id, available) => {
     const { cart } = this.state;
     const findIndex = cart.findIndex((product) => product.id === id);
     const arr = cart;
-    arr[findIndex].qnt += 1;
-    this.setState(() => ({ cart: arr }), this.save);
+    if (arr[findIndex].qnt < available) {
+      arr[findIndex].qnt += 1;
+      this.setState(() => ({ cart: arr }), this.save);
+    }
   };
 
   handleMinus = (id) => {
@@ -51,7 +53,7 @@ class Cart extends React.Component {
         {cart.length === 0
           ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
           : (
-            cart.map(({ id, title, qnt, price, thumbnail }) => (
+            cart.map(({ id, title, qnt, price, thumbnail, available }) => (
               <div key={ id } className="cartItem-container">
                 <button
                   type="button"
@@ -79,7 +81,7 @@ class Cart extends React.Component {
                   type="button"
                   aria-label="adding"
                   data-testid="product-increase-quantity"
-                  onClick={ () => this.handleAdd(id) }
+                  onClick={ () => this.handleAdd(id, available) }
                 >
                   <FiPlus />
                 </button>

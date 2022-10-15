@@ -50,59 +50,61 @@ class Cart extends React.Component {
     return (
       <div className="cart-container">
         <Link to="/">Home</Link>
-        {cart.length === 0
-          ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
-          : (
-            cart.map(({ id, title, qnt, price, thumbnail, available }) => (
-              <div key={ id } className="cartItem-container">
-                <button
-                  type="button"
-                  data-testid="remove-product"
-                  className="removebtn"
-                  onClick={ () => this.handleRemove(id) }
-                >
-                  <MdDeleteForever />
-                </button>
-                <img src={ thumbnail } alt={ title } />
-                <h3 data-testid="shopping-cart-product-name">{title}</h3>
-                <button
-                  type="button"
-                  aria-label="subtracting"
-                  disabled={ qnt === 1 }
-                  onClick={ () => this.handleMinus(id) }
-                  data-testid="product-decrease-quantity"
-                >
-                  <FiMinus />
-                </button>
-                <p data-testid="shopping-cart-product-quantity">
-                  {qnt}
-                </p>
-                <button
-                  type="button"
-                  aria-label="adding"
-                  data-testid="product-increase-quantity"
-                  onClick={ () => this.handleAdd(id, available) }
-                >
-                  <FiPlus />
-                </button>
-                <p>
-                  R$
-                  {' '}
-                  {(Math
-                    .round((qnt * price) * 100) / 100)
-                    .toLocaleString('pt-br')}
-
-                </p>
-              </div>
-            ))
-          )}
+        {cart.length === 0 ? (
+          <p data-testid="shopping-cart-empty-message">
+            Seu carrinho está vazio
+          </p>
+        ) : (
+          cart.map(({ id, title, qnt, price, thumbnail, available }) => (
+            <div key={ id } className="cartItem-container">
+              <button
+                type="button"
+                data-testid="remove-product"
+                className="removebtn"
+                onClick={ () => this.handleRemove(id) }
+              >
+                <MdDeleteForever />
+              </button>
+              <img src={ thumbnail } alt={ title } />
+              <h3 data-testid="shopping-cart-product-name">{title}</h3>
+              <button
+                type="button"
+                aria-label="subtracting"
+                disabled={ qnt === 1 }
+                onClick={ () => this.handleMinus(id) }
+                data-testid="product-decrease-quantity"
+              >
+                <FiMinus />
+              </button>
+              <p data-testid="shopping-cart-product-quantity">{qnt}</p>
+              <button
+                type="button"
+                aria-label="adding"
+                data-testid="product-increase-quantity"
+                onClick={ () => this.handleAdd(id, available) }
+              >
+                <FiPlus />
+              </button>
+              <p>
+                R$
+                {' '}
+                {(Math.round(qnt * price * 100) / 100).toLocaleString('pt-br')}
+              </p>
+            </div>
+          ))
+        )}
         {cart.length !== 0 && (
           <p>
             Preço total: R$
             {' '}
-            {cart.reduce((acc, curr) => acc + (curr.price * curr.qnt), 0)
+            {cart
+              .reduce((acc, curr) => acc + curr.price * curr.qnt, 0)
               .toLocaleString('pt-br')}
-          </p>)}
+          </p>
+        )}
+        <Link to="./checkout" data-testid="checkout-products">
+          Finalizar compra
+        </Link>
       </div>
     );
   }
